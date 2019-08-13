@@ -1,0 +1,48 @@
+﻿@using Board_Game_Stranica_N_.Models
+@model List<Dogadaj>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h2>@ViewBag.Title</h2>
+@using (Html.BeginForm("PopisDogadaja", "Dogadaj", FormMethod.Get, new { @class = "form-inline" }))
+{
+    <p>
+        <div class="form-group">
+            @Html.TextBox("Naziv", "", new { @class = "form-inline" })
+        </div>
+        <button type="submit" class="btn btn-primary">
+            Traži
+            <span class="glyphicon glyphicon-search" aria-hidden="true" />
+        </button>
+    </p>
+}
+<p>@Html.ActionLink("Organiziraj novu igru", "NapraviDogadaj")</p>
+<table class="table">
+    <tr>
+        <th>Naziv Igre</th>
+        <th>Datum Održavanja</th>
+        <th>Mjesto Održavanja</th>
+        <th>Organizator</th>
+        <th>Opis</th>
+    </tr>
+    @foreach (Dogadaj d in Model)
+    {
+        <tr>
+            <td>@d.Naziv</td>
+            <td>@d.DatumOdrzavanja.ToString("dd/MM/yyyy")</td>
+            <td>@d.Mjesto</td>
+            <td>@d.Organizator</td>
+            <td>
+                @Html.ActionLink("Više", "Detaljno",
+                new { id = d.Id }) |
+                @Html.ActionLink("Ažuriranje", "AzurirajDogadaj",
+                    new { id = d.Id }) |
+                @Html.ActionLink("Brisanje", "BrisiDogadaj",
+                    new { id = d.Id })
+            </td>
+        </tr>
+    }
+</table>

@@ -1,0 +1,34 @@
+﻿@using Board_Game_Stranica_N_.Models
+@model Dogadaj
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml"; ;
+
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <div>
+        <h2>@ViewBag.Title</h2>
+        <h3>@Model.Naziv</h3>
+        <p>
+            Datum održavanja: @Model.DatumOdrzavanja.ToString("")<br>
+        </p>
+        <p>Mjesto održavanja: @Model.Mjesto</p>
+        <p>Organizator: @Model.Organizator</p>
+        <p>Opis: @Model.KratkiOpis</p>
+        <p>@Html.ActionLink("Povrat na popis", "PopisDogadaja", "Dogadaj")</p>
+
+    </div>
+    <p>
+        <span class="glyphicon glyphicon-print"></span>
+        @Html.ActionLink("Ispiši", "Ispis", new { naziv = Request.QueryString["naziv"], id = Model.Id })
+    </p>
+</body>
+</html>
