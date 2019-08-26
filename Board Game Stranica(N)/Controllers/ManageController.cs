@@ -7,6 +7,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Board_Game_Stranica_N_.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Board_Game_Stranica_N_.Controllers
 {
@@ -50,27 +51,86 @@ namespace Board_Game_Stranica_N_.Controllers
             }
         }
 
-        //
-        // GET: /Manage/Index
-        public async Task<ActionResult> Index(ManageMessageId? message)
+        //GET: /Manage/PromijenaLozinke ---> dodatni view gdje korisnik potvrdi zeli li promijeniti lozinku --> if yes, go to /Manage/ChangePassword
+        public async Task<ActionResult> PromijenaLozinke(ManageMessageId? message)
         {
             ViewBag.StatusMessage =
-                message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
-                : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
+                message == ManageMessageId.ChangePasswordSuccess ? "Vaša lozinka je promijenjena."
+                : message == ManageMessageId.SetPasswordSuccess ? "Vaša lozinka je postavljena."
                 : message == ManageMessageId.SetTwoFactorSuccess ? "Your two-factor authentication provider has been set."
-                : message == ManageMessageId.Error ? "An error has occurred."
+                : message == ManageMessageId.Error ? "Došlo je do pogreške."
                 : message == ManageMessageId.AddPhoneSuccess ? "Your phone number was added."
                 : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
                 : "";
 
-            var userId = User.Identity.GetUserId();
-            var model = new IndexViewModel
+            var usedId = User.Identity.GetUserId();
+            var modelP = new IndexViewModel
             {
-                HasPassword = HasPassword(),
-                PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
-                TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
-                Logins = await UserManager.GetLoginsAsync(userId),
-                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
+                HasPassword = HasPassword()
+            };
+            return View(modelP);
+        }
+
+        // azuriraj opis korisnika
+        // azuriraj get metoda
+        public async Task<ActionResult> PromijenaOpisa()
+        {
+            var userId = User.Identity.GetUserId();
+            var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+            var currentUser = manager.FindById(User.Identity.GetUserId());
+            var model = new ApplicationUser
+            {
+                Opis = currentUser.Opis
+            };
+            return View(model);
+        }
+
+        //azuriraj post metoda
+        [HttpPost]
+        public async Task<ActionResult> PromijenaOpisa(ApplicationUser model)
+        {
+            //provjera da li je Opis prazan
+            if (model.Opis==null)
+                ModelState.AddModelError("Opis", "Morate napisati nešto o sebi");
+            // provjera ispravnosti modela
+            if (ModelState.IsValid)
+            {
+                var store = new UserStore<ApplicationUser>(new ApplicationDbContext());
+                var manager = new UserManager<ApplicationUser>(store);
+                var currentUser = manager.FindById(User.Identity.GetUserId());
+                //azuriranje opisa
+                currentUser.Opis = model.Opis;
+                await manager.UpdateAsync(currentUser);
+                // azuriranje u bazi
+                var context = store.Context;
+                context.SaveChanges();
+                return RedirectToAction("Index", "Manage");
+            }
+            else
+            {
+                ViewBag.Title = "Ponovno mijenjanje opisa";
+                return View(model);
+            }
+        }
+
+        //
+        // GET: /Manage/Index
+        public async Task<ActionResult> Index(ManageMessageId? message)
+        {
+            var userId = User.Identity.GetUserId();
+            var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+            var currentUser = manager.FindById(User.Identity.GetUserId());
+            var model = new ApplicationUser
+            {
+                Ime = currentUser.Ime,
+                Prezime = currentUser.Prezime,
+                Email=currentUser.Email,
+                DatumRodenja=currentUser.DatumRodenja,
+                Opis=currentUser.Opis
+                //PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
+                //TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
+                //Logins = await UserManager.GetLoginsAsync(userId),
+                //BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
             };
             return View(model);
         }
@@ -105,6 +165,7 @@ namespace Board_Game_Stranica_N_.Controllers
         {
             return View();
         }
+
 
         //
         // POST: /Manage/AddPhoneNumber

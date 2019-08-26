@@ -1,0 +1,26 @@
+﻿@using Board_Game_Stranica_N_.Models
+@model IndexViewModel
+
+@{
+    ViewBag.Title = "Sigurno želite promijeniti svoju lozinku?";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p class="text-success">@ViewBag.StatusMessage</p>
+<body>
+    <div>
+        @if (Model.HasPassword)
+        {
+            <input type="button" value="Da, želim promijeniti svoju lozinku" onclick="location.href='@Url.Action("ChangePassword")'" />
+        }
+        else
+        {
+            @Html.ActionLink("Create", "SetPassword")
+        }
+    </div>
+    <div>
+        <input type="button" value="Ne, vrati me" onclick="location.href='@Url.Action("Index")'" />
+    </div>
+</body>
+

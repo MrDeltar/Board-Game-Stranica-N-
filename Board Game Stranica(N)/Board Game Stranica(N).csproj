@@ -211,6 +211,15 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Ispis PDF\IspisDogadaja.cs" />
+    <Compile Include="Migrations\201908201429478_InitialCreate.cs" />
+    <Compile Include="Migrations\201908201429478_InitialCreate.Designer.cs">
+      <DependentUpon>201908201429478_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908211323594_ime.cs" />
+    <Compile Include="Migrations\201908211323594_ime.Designer.cs">
+      <DependentUpon>201908211323594_ime.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Dogadaj.cs" />
     <Compile Include="Models\DogadajiDbContext.cs" />
@@ -231,6 +240,7 @@
     <Content Include="Pictures\520571-dice-100.png" />
     <Content Include="Pictures\520571-dice-30.png" />
     <Content Include="Pictures\520571-dice-512.png" />
+    <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -286,6 +296,8 @@
     <Content Include="Views\Dogadaj\Detaljno.cshtml" />
     <Content Include="Views\Dogadaj\BrisiDogadaj.cshtml" />
     <Content Include="Views\Dogadaj\AzurirajDogadaj.cshtml" />
+    <Content Include="Views\Manage\PromijenaLozinke.cshtml" />
+    <Content Include="Views\Manage\PromijenaOpisa.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -302,6 +314,14 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201908201429478_InitialCreate.resx">
+      <DependentUpon>201908201429478_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908211323594_ime.resx">
+      <DependentUpon>201908211323594_ime.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

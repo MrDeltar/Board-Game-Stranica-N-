@@ -20,7 +20,8 @@
         {
             @Html.AntiForgeryToken()
             <input type="submit" value="Da, želim">
-            @Html.ActionLink("Povratak bez brisanja", "PopisDogadaja", "Dogadaj")
+            @*@Html.ActionLink("Povratak bez brisanja", "PopisDogadaja", "Dogadaj")*@
+            <input type="button" value="Povratak bez brisanja" onclick="location.href='@Url.Action("PopisDogadaja", "Dogadaj")'" />
         }
     </div>
 </body>

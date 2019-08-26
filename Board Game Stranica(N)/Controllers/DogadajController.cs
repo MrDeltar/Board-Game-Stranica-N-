@@ -6,11 +6,14 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using Board_Game_Stranica_N_.Ispis_PDF;
 using Board_Game_Stranica_N_.Models;
 
 namespace Board_Game_Stranica_N_.Controllers
 {
+    [Authorize] //po defaultu sve je dostupno samo registriranim korisnicima
     public class DogadajController : Controller
     {
 
@@ -18,6 +21,7 @@ namespace Board_Game_Stranica_N_.Controllers
         private DogadajiDbContext baza = new DogadajiDbContext();
 
         //popis dogadaja
+        [AllowAnonymous]// dozvoljeno pregled i ne-registriranim posjetiteljima
         [HttpGet]
         public ActionResult PopisDogadaja(string nazivI)
         {
@@ -42,6 +46,8 @@ namespace Board_Game_Stranica_N_.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult NapraviDogadaj( Dogadaj dogadaj)
         {
+            if (dogadaj.DatumOdrzavanja < DateTime.Now)
+                ModelState.AddModelError("DatumOdrzavanja", "Datum odrzavanja ne može biti u prošlosti");
             if (ModelState.IsValid)
             {
                 baza.Dogadaji.Add(dogadaj);
@@ -53,6 +59,7 @@ namespace Board_Game_Stranica_N_.Controllers
         }
 
         // detaljni podaci dogadaja
+        [AllowAnonymous]// dozvoljeno pregled i ne-registriranim posjetiteljima
         public ActionResult Detaljno(int? id)
         {
             ViewBag.Title = "Podaci o društevnoj igri";
@@ -71,6 +78,7 @@ namespace Board_Game_Stranica_N_.Controllers
 
 
         // ispis
+        [AllowAnonymous]// dozvoljeno pregled i ne-registriranim posjetiteljima
         public FileStreamResult Ispis(int? id)
         {
             // lambda izraz
@@ -139,25 +147,30 @@ namespace Board_Game_Stranica_N_.Controllers
         // azuriraj - post metoda
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AzurirajDogadaj(
-            [Bind(Include = "Id, Naziv, DatumOdrzavanja, Mjesto, Organizator, KratkiOpis")] Dogadaj d)
+        public ActionResult AzurirajDogadaj([Bind(Include = "Id, Naziv, DatumOdrzavanja, Mjesto, Organizator, KratkiOpis")] Dogadaj d)
         {
             //validacija
             // provjera datuma odrzavanja
-            //if (d.DatumOdrzavanja < DateTime.Now)
-            //   ModelState.AddModelError("DatumOdrzavanja", "Datum odrzavanja ne može biti u prošlosti");
+            if (d.DatumOdrzavanja < DateTime.Now)
+                ModelState.AddModelError("DatumOdrzavanja", "Datum odrzavanja ne može biti u prošlosti");
             // provjera ispravnosti modela
             if (ModelState.IsValid)
             {
+                //baza.Entry(d).State = EntityState.Modified;
+                //baza.SaveChanges();
+                //return RedirectToAction("PopisDogadaja", "Dogadaj");
+
                 if (d.Id == 0)
                 {
                     // dodavanje u bazu
+                    //baza.Dogadaji.Add(d);
 
                 }
                 else
                 {
                     // azuriranje u bazi
                     baza.Entry(d).State = EntityState.Modified;
+                    baza.SaveChanges();
                 }
                 baza.SaveChanges();
                 return RedirectToAction("PopisDogadaja", "Dogadaj");

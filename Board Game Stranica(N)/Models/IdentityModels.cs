@@ -1,4 +1,7 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -16,6 +19,19 @@ namespace Board_Game_Stranica_N_.Models
             // Add custom user claims here
             return userIdentity;
         }
+
+        // ime
+        public string Ime { get; set; }
+
+        // prezime
+        public string Prezime { get; set; }
+
+
+        // Datum rodenja
+        public DateTime DatumRodenja { get; set; }
+
+        //opis
+        public string Opis { get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
@@ -29,5 +45,6 @@ namespace Board_Game_Stranica_N_.Models
         {
             return new ApplicationDbContext();
         }
+
     }
 }

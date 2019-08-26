@@ -42,20 +42,6 @@ INSERT INTO `dogadaji` (`id`,`naziv`,`mjesto`,`datum`,`organizator`,`kratki_opis
   
 commit;
 
--- -----------------------------------------------------
--- Table `nbgs_db`.`korisnici`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `nbgs_db`.`korisnici` (
-  `id_korisnik` INT(11) NOT NULL,
-  `ime` VARCHAR(100) NULL DEFAULT NULL,
-  `prezime` VARCHAR(100) NULL DEFAULT NULL,
-  `datum_rodenja` DATE NULL DEFAULT NULL,
-  `opis` VARCHAR(500) NULL DEFAULT NULL,
-  PRIMARY KEY (`id_korisnik`))
-ENGINE = InnoDB
-AUTO_INCREMENT = 1
-DEFAULT CHARACTER SET = utf8;
-
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

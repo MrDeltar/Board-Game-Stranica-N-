@@ -65,11 +65,14 @@ namespace Board_Game_Stranica_N_.Ispis_PDF
             info.Add("Mjesto održavanja: ");
             info.Add(d.Mjesto);
             info.Add("\n");
-            info.Add("Datum i vrijeme održavanja: ");
-            info.Add(d.DatumOdrzavanja.ToString());
+            info.Add("Datum održavanja: ");
+            info.Add(d.DatumOdrzavanja.ToString("dd/MM/yyyy"));
             info.Add("\n");
             info.Add("Organizator: ");
             info.Add(d.Organizator);
+            info.Add("\n");
+            info.Add("Opis: ");
+            info.Add(d.KratkiOpis);
             pdfDokument.Add(info);
 
             //=====zavrsavamo s pisanjem=====

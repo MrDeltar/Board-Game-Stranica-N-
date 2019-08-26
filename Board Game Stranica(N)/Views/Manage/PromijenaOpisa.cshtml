@@ -1,0 +1,45 @@
+﻿@model Board_Game_Stranica_N_.Models.ApplicationUser
+
+@{
+    ViewBag.Title = "Promijena Opisa";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Promijena Opisa</title>
+</head>
+<body>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.Id)
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Opis, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextAreaFor(model => model.Opis, 10, 40, htmlAttributes: new { style = "width: 100%; max-width: 100%;" })
+                    @Html.ValidationMessageFor(model => model.Opis, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Spremi" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    }
+
+    <div>
+        @Html.ActionLink("Povratak na Pregled podataka", "Index")
+    </div>
+</body>
+</html>

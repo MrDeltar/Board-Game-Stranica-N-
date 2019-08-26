@@ -9,47 +9,51 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-<table class="table">
-    <tr>
-        <td>@Html.LabelFor(m => m.Naziv)</td>
-        <td>
-            @Html.TextBoxFor(m => m.Naziv)
-            @Html.ValidationMessageFor(m => m.Naziv)
-        </td>
-    <tr>
-    <tr>
-        <td>@Html.LabelFor(m => m.Mjesto)</td>
-        <td>
-            @Html.TextBoxFor(m => m.Mjesto)
-            @Html.ValidationMessageFor(m => m.Mjesto)
-        </td>
-    <tr>
-    <tr>
-        <td>@Html.LabelFor(m => m.DatumOdrzavanja)</td>
-        <td>
-            @*@Html.TextBoxFor(m => m.DatumOdrzavanja, new { @type = "date", @class = "form-control datepicker", @Value = Model.DatumOdrzavanja.ToString("dd-MM-yyyy hh-mm") })*@
-            @Html.TextBoxFor(m => m.DatumOdrzavanja, "{0:dd/MM/yyyy}", new { type = "date"})
-            @Html.ValidationMessageFor(m => m.DatumOdrzavanja)
-        </td>
-    <tr>
-    <tr>
-        <td>@Html.LabelFor(m => m.Organizator)</td>
-        <td>
-            @Html.TextBoxFor(m => m.Organizator)
-            @Html.ValidationMessageFor(m => m.Organizator)
-        </td>
-    <tr>
-    <tr>
-        <td>@Html.LabelFor(m => m.KratkiOpis)</td>
-        <td>
-            @Html.TextBoxFor(m => m.KratkiOpis)
-            @Html.ValidationMessageFor(m => m.KratkiOpis)
-        </td>
-    <tr>
+    <table class="table">
+        <tr>
+            <td>@Html.LabelFor(m => m.Naziv)</td>
+            <td>
+                @Html.TextBoxFor(m => m.Naziv)
+                @Html.ValidationMessageFor(m => m.Naziv)
+            </td>
+        <tr>
+        <tr>
+            <td>@Html.LabelFor(m => m.Mjesto)</td>
+            <td>
+                @Html.TextBoxFor(m => m.Mjesto)
+                @Html.ValidationMessageFor(m => m.Mjesto)
+            </td>
+        <tr>
+        <tr>
+            <td>@Html.LabelFor(m => m.DatumOdrzavanja)</td>
+            <td>
+                @*@Html.TextBoxFor(m => m.DatumOdrzavanja, new { @type = "date", @class = "form-control datepicker", @Value = Model.DatumOdrzavanja.ToString("dd-MM-yyyy hh-mm") })*@
+                @Html.TextBoxFor(m => m.DatumOdrzavanja, "{0:dd/MM/yyyy}", new { type = "date" })
+                @Html.ValidationMessageFor(m => m.DatumOdrzavanja)
+            </td>
+        <tr>
+        <tr>
+            <td>@Html.LabelFor(m => m.Organizator)</td>
+            <td>
+                @Html.TextBoxFor(m => m.Organizator@*, new { style = "width:400px; height:30px;" }*@)
+                @Html.ValidationMessageFor(m => m.Organizator)
+            </td>
+        <tr>
+        <tr>
+            <td>@Html.LabelFor(m => m.KratkiOpis)</td>
+            <td>
+                @Html.TextAreaFor(m => m.KratkiOpis, 10, 40, htmlAttributes: new { style = "width: 100%; max-width: 100%;" })
+                @Html.ValidationMessageFor(m => m.KratkiOpis)
+            </td>
+        <tr>
 
-</table>
-    <p>@Html.ValidationSummary("Prvo popraviti sljedeće:")</p>
+    </table>
+    @*<p>@Html.ValidationSummary("Prvo popraviti sljedeće:")</p>*@
     <p><input type="submit" value="Spremi" /></p>
+    <div>
+        @Html.ActionLink("Povratak na listu", "PopisDogadaja")
+    </div>
+
 }
 
 @section Scripts

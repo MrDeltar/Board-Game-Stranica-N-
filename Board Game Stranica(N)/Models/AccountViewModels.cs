@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Board_Game_Stranica_N_.Models
@@ -33,7 +34,7 @@ namespace Board_Game_Stranica_N_.Models
         public string Code { get; set; }
         public string ReturnUrl { get; set; }
 
-        [Display(Name = "Remember this browser?")]
+        [Display(Name = "Zapamtiti ovaj preglednik?")]
         public bool RememberBrowser { get; set; }
 
         public bool RememberMe { get; set; }
@@ -55,30 +56,54 @@ namespace Board_Game_Stranica_N_.Models
 
         [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Lozinka")]
         public string Password { get; set; }
 
-        [Display(Name = "Remember me?")]
+        [Display(Name = "Zapamti me?")]
         public bool RememberMe { get; set; }
     }
 
     public class RegisterViewModel
     {
-        [Required]
+        //email
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
 
-        [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        //lozinka
+        [Display(Name = "Lozinka")]
+        [StringLength(100, ErrorMessage = "{0} mora imati barem {2} karaktera.", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "{0} je obavezna")]
         public string Password { get; set; }
 
+        //potvrda lozinke
+        [Display(Name = "Potvrda Lozinke")]
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [Compare("Password", ErrorMessage = "Lozinka i Potvrda Lozinke moraju biti isti.")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "{0} je obavezno")]
         public string ConfirmPassword { get; set; }
+
+        // ime
+        [Required(AllowEmptyStrings = false, ErrorMessage = "{0} je obavezno")]
+        public string Ime { get; set; }
+
+        // prezime
+        [Required(AllowEmptyStrings = false, ErrorMessage = "{0} je obavezo")]
+        public string Prezime { get; set; }
+
+
+        // Datum rodenja
+        [Display(Name = "Datum rođenja")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        [Required(ErrorMessage = "{0} je obavezan")]
+        public DateTime DatumRodenja { get; set; }
+
+        //opis
+        [Display(Name = "Ukratko opišite sebe")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Morate nešto napisati o sebi")]
+        public string Opis { get; set; }
     }
 
     public class ResetPasswordViewModel
@@ -89,14 +114,14 @@ namespace Board_Game_Stranica_N_.Models
         public string Email { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessage = "{0} mora imati barem {2} karaktera.", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Lozinka")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [Display(Name = "Potvrda Lozinke")]
+        [Compare("Password", ErrorMessage = "Lozinka i Potvrda Lozinke moraju biti isti.")]
         public string ConfirmPassword { get; set; }
 
         public string Code { get; set; }
