@@ -1,5 +1,7 @@
 ﻿@using Board_Game_Stranica_N_.Models
-@model List<Dogadaj>
+@using PagedList.Mvc;
+@model PagedList.IPagedList<Dogadaj>
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -10,11 +12,8 @@
 @using (Html.BeginForm("PopisDogadaja", "Dogadaj", FormMethod.Get, new { @class = "form-inline" }))
 {
     <p>
-        <div class="form-group">
-            @Html.TextBox("Naziv", "", new { @class = "form-inline" })
-        </div>
+        Traži po nazivu: @Html.TextBox("pretrazivanje", ViewBag.CurrentFilter as string)
         <button type="submit" class="btn btn-primary">
-            Traži
             <span class="glyphicon glyphicon-search" aria-hidden="true" />
         </button>
     </p>
@@ -22,11 +21,14 @@
 <p>@Html.ActionLink("Organiziraj novu igru", "NapraviDogadaj")</p>
 <table class="table">
     <tr>
-        <th>Naziv Igre</th>
-        <th>Datum Održavanja</th>
+        <th>@Html.ActionLink("Naziv Igre", "PopisDogadaja", new { sortOrder = ViewBag.NameSortParm, filter=ViewBag.CurrentFilter })</th>
+        <th>@Html.ActionLink("Datum Održavanja", "PopisDogadaja", new { sortOrder = ViewBag.DateSortParm, filter=ViewBag.CurrentFilter})</th>
+        @*<th>@Html.ActionLink("Mjesto Održavanja", "PopisDogadaja", new { sortOrder = ViewBag.DateSortParm })</th>
+            <th>@Html.ActionLink("Organizator", "PopisDogadaja", new { sortOrder = ViewBag.NameSortParm })</th>*@
         <th>Mjesto Održavanja</th>
         <th>Organizator</th>
     </tr>
+
     @foreach (Dogadaj d in Model)
     {
         <tr>
@@ -45,3 +47,7 @@
         </tr>
     }
 </table>
+<br />
+Stranica @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, stranica => Url.Action("PopisDogadaja", new { stranica, sortiranje = ViewBag.CurrentSort, filter = ViewBag.CurrentFilter }))

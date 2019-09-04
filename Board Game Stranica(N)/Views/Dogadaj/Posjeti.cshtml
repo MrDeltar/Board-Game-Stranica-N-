@@ -1,0 +1,61 @@
+﻿@model Board_Game_Stranica_N_.Models.ApplicationUser
+
+@{
+    ViewBag.Title = "O organizatoru";
+}
+
+<h2>@ViewBag.Title.</h2>
+
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+</head>
+<body>
+    <div>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Ime)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Ime)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Prezime)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Prezime)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.DatumRodenja)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.DatumRodenja)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Opis)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Opis)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Email)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Email)
+            </dd>
+        </dl>
+    </div>
+    <p>@Html.ActionLink("Povrat na popis", "PopisDogadaja", "Dogadaj")</p>
+</body>
+</html>

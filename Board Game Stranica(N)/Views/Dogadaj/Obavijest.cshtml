@@ -1,0 +1,20 @@
+﻿@using Board_Game_Stranica_N_.Models
+@model Dogadaj
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <h2>Greška u dohvatu</h2>
+
+</head>
+<body>
+    <p>Vi niste organizirali društvenu igru @Model.Naziv i zbog toga ne možete mijenjati informacije/obrisati.</p>
+    <p>
+        @Html.ActionLink("Povratak na listu", "PopisDogadaja")
+    </p>
+</body>
+</html>

@@ -30,15 +30,16 @@ CREATE TABLE IF NOT EXISTS `nbgs_db`.`dogadaji` (
   `datum` DATE NOT NULL,
   `organizator` VARCHAR(100) NOT NULL,
   `kratki_opis` VARCHAR(200) NOT NULL,
+  `korisnik_veza` VARCHAR(256),
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
 AUTO_INCREMENT = 3
 DEFAULT CHARACTER SET = utf8;
 
-INSERT INTO `dogadaji` (`id`,`naziv`,`mjesto`,`datum`,`organizator`,`kratki_opis`) 
-  VALUES (1,'Star Wars Armada','Čakovec','2019-10-11','Jura Cilar','U 16:00');
-INSERT INTO `dogadaji` (`id`,`naziv`,`mjesto`,`datum`,`organizator`,`kratki_opis`) 
-  VALUES (2,'XCOM The Board Game','Casa Latina','2019-07-22','Matteo Posavec','U 19:30');
+INSERT INTO `dogadaji` (`id`,`naziv`,`mjesto`,`datum`,`organizator`,`kratki_opis`,`korisnik_veza`) 
+  VALUES (1,'Star Wars Armada','Čakovec','2019-10-11','Jura Cilar','U 16:00','jcilar6@gmail.com');
+INSERT INTO `dogadaji` (`id`,`naziv`,`mjesto`,`datum`,`organizator`,`kratki_opis`,`korisnik_veza`) 
+  VALUES (2,'XCOM The Board Game','Casa Latina','2019-10-22','Matteo Posavec','U 19:30','jura.cilar@student.mev');
   
 commit;
 

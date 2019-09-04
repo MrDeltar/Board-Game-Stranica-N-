@@ -65,6 +65,7 @@ namespace Board_Game_Stranica_N_.Models
 
     public class RegisterViewModel
     {
+
         //email
         [EmailAddress]
         [Display(Name = "Email")]

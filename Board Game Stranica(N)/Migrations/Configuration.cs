@@ -1,5 +1,8 @@
 namespace Board_Game_Stranica_N_.Migrations
 {
+    using Board_Game_Stranica_N_.Models;
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
@@ -15,6 +18,7 @@ namespace Board_Game_Stranica_N_.Migrations
 
         protected override void Seed(Board_Game_Stranica_N_.Models.ApplicationDbContext context)
         {
+
             //  This method will be called after migrating to the latest version.
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 

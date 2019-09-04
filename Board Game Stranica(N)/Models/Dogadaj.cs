@@ -16,6 +16,10 @@ namespace Board_Game_Stranica_N_.Models
         [Key]
         public int Id { get; set; }
 
+        //za prepoznavanje kojem korisniku pripada
+        [Column("korisnik_veza")]
+        public string Veza { get; set; }
+
         // naziv dogadaja
         private string naziv;
 

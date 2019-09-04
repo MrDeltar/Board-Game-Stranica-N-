@@ -15,7 +15,7 @@ namespace Board_Game_Stranica_N_
         }
 
         //stvaramo defaultne uloge za Registriranog Korisnika i Administratora
-        private void createRolesandUsers()
+        private void NapraviUloge()
         {
             ApplicationDbContext context = new ApplicationDbContext();
 
@@ -35,15 +35,15 @@ namespace Board_Game_Stranica_N_
                 //Defaultni Administrator                
 
                 var user = new ApplicationUser();
-                user.UserName = "Jura";
+                user.UserName = "jcilar6@gmail.com";
                 user.Email = "jcilar6@gmail.com";
 
-                string userPWD = "Lisica12!";
+                string lozinka = "Lisica12!";
 
-                var chkUser = UserManager.Create(user, userPWD);
+                var napraviKor = UserManager.Create(user, lozinka);
 
                 //Add defaultnog korisnika kao Administrator 
-                if (chkUser.Succeeded)
+                if (napraviKor.Succeeded)
                 {
                     var result1 = UserManager.AddToRole(user.Id, "Admin");
 
@@ -51,13 +51,13 @@ namespace Board_Game_Stranica_N_
             }
 
             // stvaramo ulogu Registrirani korisnik  
-            if (!roleManager.RoleExists("RegKorisnik"))
-            {
-                var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
-                role.Name = "RegKorisnik";
-                roleManager.Create(role);
+            //if (!roleManager.RoleExists("RegKorisnik"))
+            //{
+            //    var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
+            //    role.Name = "RegKorisnik";
+            //    roleManager.Create(role);
 
-            }
+            //}
 
         }
     }
